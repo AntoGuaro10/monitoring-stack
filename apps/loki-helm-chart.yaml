@@ -1,0 +1,36 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: grafana-loki
+  namespace: monitoring
+spec:
+  interval: 3m0s
+  url: https://grafana-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  interval: 3m
+  timeout: 5m
+  chart:
+    spec:
+      chart: grafana-community
+      version: 'loki-17.0.0'
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-loki
+      interval: 3m
+  releaseName: loki
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: grafana-loki-values
+      valuesKey: loki-values.yaml
