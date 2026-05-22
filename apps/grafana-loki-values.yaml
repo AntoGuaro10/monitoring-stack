@@ -25,6 +25,10 @@ data:
         volume_enabled: true
       ruler:
         enable_api: true
+      storage:
+        filesystem:
+          chunk_directory: /var/loki/chunks
+          rules_directory: /var/loki/rules
 
     minio:
       enabled: false
