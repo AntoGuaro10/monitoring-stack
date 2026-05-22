@@ -23,7 +23,7 @@ spec:
         kind: HelmRepository
         name: grafana-community
       interval: 3m
-  releaseName: loki
+  releaseName: grafana-community/loki
   install:
     remediation:
       retries: 3
