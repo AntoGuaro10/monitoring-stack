@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: grafana-community
-  namespace: monitoring
+  namespace: flux-system
 spec:
   interval: 3m0s
   url: https://grafana-community.github.io/helm-charts
@@ -17,13 +17,13 @@ spec:
   timeout: 5m
   chart:
     spec:
-      chart: grafana-community
+      chart: loki
       version: '17.0.0'
       sourceRef:
         kind: HelmRepository
         name: grafana-community
+        namespace: flux-system
       interval: 3m
-  releaseName: grafana-community/loki
   install:
     remediation:
       retries: 3
